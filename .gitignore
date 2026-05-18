@@ -209,6 +209,9 @@ tempCodeRunnerFile.py
 # PyPI configuration file
 .pypirc
 
+# Generated simulation data (reproducible via python generate_data.py)
+data/
+
 # Marimo
 marimo/_static/
 marimo/_lsp/

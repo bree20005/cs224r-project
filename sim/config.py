@@ -1,0 +1,12 @@
+NUM_USERS = 200
+NUM_POSTS = 500
+NUM_CLUSTERS = 5
+HELD_OUT_CLUSTER = 4        # withheld from training; used only for reward generalization eval
+EMBED_DIM = 16              # post and user preference vector dimensionality
+POSTS_PER_CLUSTER = NUM_POSTS // NUM_CLUSTERS   # 100
+SESSIONS_PER_USER = 20
+POSTS_PER_SESSION = 8
+CLUSTER_COHESION = 0.7      # fraction of embedding that points at cluster center
+NOISE_LEVELS = [0.1, 0.3, 0.5, 0.8]   # noise temperatures for ablation
+DEFAULT_NOISE = 0.3
+RANDOM_SEED = 42
