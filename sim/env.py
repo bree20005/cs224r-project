@@ -158,7 +158,7 @@ class SocialFeedEnv:
         return_prob = float(1 / (1 + np.exp(-return_logit)))
         next_session_return = bool(self.rng.random() < return_prob)
 
-        # Composite engagement score for Komal's ranking pipeline
+        # Composite engagement score for trajectory ranking / T-REX pairing
         # Primary weight on next-session return; remaining signals as tiebreakers
         click_rate = float(np.mean([p.clicked for p in posts]))
         mean_dwell = float(np.mean([p.dwell_time for p in posts]))

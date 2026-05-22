@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-Reward-network evaluation (Komal's milestone).
+Reward-network evaluation.
 
-Metrics your friend will also report at the project level:
-  - Pearson r(predicted reward, true_satisfaction) on held-out users
-  - Pairwise ranking accuracy on behavioral labels
-  - Optional: sessions containing only eval-cluster posts (cluster 4)
+Metrics:
+  - Pearson r(predicted reward, true_satisfaction) on all sessions
+  - Pairwise ranking accuracy on behavioral labels (held-out users)
+  - Optional: sessions containing eval-cluster posts (cluster 4)
 """
 
 from __future__ import annotations

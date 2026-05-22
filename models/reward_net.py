@@ -99,7 +99,7 @@ def bradley_terry_loss(r_win: torch.Tensor, r_lose: torch.Tensor) -> torch.Tenso
 
 
 class FrozenRewardScorer:
-    """Load checkpoint for PPO / evaluation (friend's integration point)."""
+    """Load frozen checkpoint for PPO reward shaping and offline evaluation."""
 
     def __init__(self, checkpoint_path: str | Path, data_dir: str | Path = "data"):
         ckpt = torch.load(checkpoint_path, map_location="cpu", weights_only=False)

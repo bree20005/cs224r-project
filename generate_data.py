@@ -21,7 +21,7 @@ sessions.json record schema
   "early_exit":          false,
   "next_session_return": true,
   "true_satisfaction":   0.3456,   // GROUND TRUTH — never use as training signal
-  "engagement_score":    0.6234,   // ranking signal for T-REX pairing (Komal's input)
+  "engagement_score":    0.6234,   // ranking signal for T-REX pairing
   "posts": [
     {
       "post_id":       42,
