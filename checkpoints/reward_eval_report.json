@@ -1,0 +1,7 @@
+{
+  "pearson_reward_vs_true_sat_all": 0.6689123708599253,
+  "val_pairwise_ranking_accuracy": 0.840701754385965,
+  "n_val_pairs": 5700,
+  "pearson_cluster4_sessions": null,
+  "n_cluster4_sessions": 0
+}
