@@ -1,0 +1,33 @@
+{
+  "train_posts": {
+    "ppo": {
+      "mean_reward": -14.101310116946697,
+      "mean_true_sat": 0.26514702178828825,
+      "early_exit_rate": 0.005,
+      "return_rate": 0.785
+    },
+    "random": {
+      "mean_reward": -16.415948078632354,
+      "mean_true_sat": 0.24576318881892845,
+      "early_exit_rate": 0.005,
+      "return_rate": 0.835
+    },
+    "delta_true_sat": 0.0194,
+    "delta_return_rate": -0.05
+  },
+  "cluster4_generalization": {
+    "ppo": {
+      "mean_reward": -21.756035299301146,
+      "mean_true_sat": 0.027378497512691412,
+      "early_exit_rate": 0.04,
+      "return_rate": 0.525
+    },
+    "random": {
+      "mean_reward": -21.191170902252196,
+      "mean_true_sat": -0.003997269765567238,
+      "early_exit_rate": 0.025,
+      "return_rate": 0.515
+    },
+    "delta_true_sat": 0.0314
+  }
+}
