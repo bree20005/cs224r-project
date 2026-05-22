@@ -87,10 +87,9 @@ def train_ppo(
 # ---------------------------------------------------------------------------
 @app.local_entrypoint()
 def main():
-    print("Submitting PPO training to Modal…")
-    result = train_ppo.remote()
-    print("\nTraining complete:")
-    for k, v in result.items():
-        print(f"  {k}: {v}")
-    print("\nTo download outputs:")
+    print("Submitting PPO training to Modal (detached)…")
+    call = train_ppo.spawn()
+    print(f"  function_id: {call.function_call_id}")
+    print("\nCheck status:  modal function-call get", call.function_call_id)
+    print("Download when done:")
     print("  modal volume get cs224r-trex-results / ./checkpoints/")
