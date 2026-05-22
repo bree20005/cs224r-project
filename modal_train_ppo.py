@@ -48,7 +48,7 @@ def train_ppo(
     n_iterations: int = 200,
     n_episodes: int = 64,
     eval_interval: int = 20,
-    wandb_run_name: str = "ppo",
+    wandb_run_name: str = "ppo-user-conditioned",
 ):
     import shutil
     import sys

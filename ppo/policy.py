@@ -2,7 +2,9 @@
 ActorCritic for the feed-ranking PPO agent.
 
 State = user_emb (16) + mean-pooled behavioral history (16+3=19) = 35-d.
-Actor scores each candidate post as f(state, post_emb) -> scalar logit.
+Actor scores each candidate post as f(state, post_emb, user·post) -> scalar logit.
+The explicit dot-product similarity feature lets the policy generalize to
+unseen post clusters by directly measuring user-post affinity.
 Critic estimates V(state).
 """
 
@@ -32,7 +34,8 @@ class ActorCritic(nn.Module):
         super().__init__()
         self.embed_dim = embed_dim
         state_dim = embed_dim + HISTORY_DIM
-        self.actor = _mlp(state_dim + embed_dim, hidden_dim, 1)
+        # +1 for explicit user·post dot-product similarity feature
+        self.actor = _mlp(state_dim + embed_dim + 1, hidden_dim, 1)
         self.critic = _mlp(state_dim, hidden_dim, 1)
 
     def encode_state(
@@ -52,8 +55,10 @@ class ActorCritic(nn.Module):
         post_embs: torch.Tensor,  # (N, E)
     ) -> torch.Tensor:            # (N,)
         N = post_embs.shape[0]
-        s = state.unsqueeze(0).expand(N, -1)
-        return self.actor(torch.cat([s, post_embs], dim=-1)).squeeze(-1)
+        user_emb = state[:self.embed_dim]                    # (E,)
+        sim = (post_embs @ user_emb).unsqueeze(-1)           # (N, 1) explicit u·p affinity
+        s = state.unsqueeze(0).expand(N, -1)                 # (N, STATE_DIM)
+        return self.actor(torch.cat([s, post_embs, sim], dim=-1)).squeeze(-1)
 
     def value(self, state: torch.Tensor) -> torch.Tensor:
         return self.critic(state).squeeze(-1)
