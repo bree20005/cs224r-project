@@ -49,7 +49,7 @@ def run_ppo_eval(
     rewards, true_sats, early_exits, return_flags = [], [], [], []
     for uid in range(N_EVAL_USERS):
         _, stats = collect_episode(
-            policy, env, scorer, uid, content, users, device, greedy=True
+            policy, env, uid, content, users, device, scorer=scorer, greedy=True
         )
         rewards.append(stats["reward"])
         true_sats.append(stats["true_satisfaction"])
