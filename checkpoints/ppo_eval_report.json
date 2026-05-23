@@ -1,33 +1,33 @@
 {
   "train_posts": {
     "ppo": {
-      "mean_reward": -2.0943061881512404,
-      "mean_true_sat": 0.8675518319167093,
+      "mean_reward": -1.5496393746882677,
+      "mean_true_sat": 0.8872417433768349,
       "early_exit_rate": 0.0,
       "return_rate": 1.0
     },
     "random": {
-      "mean_reward": -16.60201565504074,
+      "mean_reward": -16.641550624370574,
       "mean_true_sat": 0.24635924871162415,
       "early_exit_rate": 0.005,
       "return_rate": 0.835
     },
-    "delta_true_sat": 0.6212,
+    "delta_true_sat": 0.6409,
     "delta_return_rate": 0.165
   },
   "cluster4_generalization": {
     "ppo": {
-      "mean_reward": -21.3531875038147,
-      "mean_true_sat": 0.0678841947590996,
-      "early_exit_rate": 0.005,
-      "return_rate": 0.585
+      "mean_reward": -20.687329530715942,
+      "mean_true_sat": 0.15877534295961954,
+      "early_exit_rate": 0.0,
+      "return_rate": 0.71
     },
     "random": {
-      "mean_reward": -21.049975929260253,
-      "mean_true_sat": -0.004426017856700283,
+      "mean_reward": -21.15524712562561,
+      "mean_true_sat": -0.003813597983235374,
       "early_exit_rate": 0.03,
-      "return_rate": 0.51
+      "return_rate": 0.515
     },
-    "delta_true_sat": 0.0723
+    "delta_true_sat": 0.1626
   }
 }
