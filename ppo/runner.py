@@ -96,6 +96,12 @@ def collect_episode(
                 early_exit = True
                 break
 
+    true_sat = float(np.mean([p.true_affinity for p in post_records]))
+
+    # Simulate next-session return — observed behavioral signal (mirrors env.py)
+    ret_prob = float(1 / (1 + np.exp(-8.0 * true_sat)))
+    next_session_return = bool(env.rng.random() < ret_prob)
+
     session_dict = {
         "posts": [
             {
@@ -105,7 +111,9 @@ def collect_episode(
                 "scroll_depth": p.scroll_depth,
             }
             for p in post_records
-        ]
+        ],
+        "early_exit": early_exit,
+        "next_session_return": next_session_return,
     }
 
     if reward_fn is None:
@@ -121,13 +129,12 @@ def collect_episode(
     transitions[-1].reward = reward
     transitions[-1].done = True
 
-    true_sat = float(np.mean([p.true_affinity for p in post_records]))
-
     return transitions, {
         "reward": reward,
         "true_satisfaction": true_sat,
         "early_exit": early_exit,
         "n_posts_shown": len(post_records),
+        "post_records": post_records,
     }
 
 

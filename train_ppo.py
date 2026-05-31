@@ -98,7 +98,9 @@ def random_baseline(
                     "scroll_depth": p.scroll_depth,
                 }
                 for p in rec.posts
-            ]
+            ],
+            "early_exit": rec.early_exit,
+            "next_session_return": rec.next_session_return,
         }
 
         if reward_fn is None:

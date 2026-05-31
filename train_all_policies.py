@@ -14,8 +14,7 @@ from pathlib import Path
 
 from train_ppo import train
 
-POLICIES = ["engagement"]
-# POLICIES = ["engagement", "trex", "ground_truth"]
+POLICIES = ["engagement", "trex", "ground_truth"]
 
 
 def train_all(
@@ -26,6 +25,11 @@ def train_all(
     results = {}
 
     for policy_type in POLICIES:
+        ckpt_file = Path(f"checkpoints/ppo_policy_{policy_type}.pt")
+        if ckpt_file.exists():
+            print(f"\nSkipping {policy_type.upper()} — checkpoint already exists: {ckpt_file}")
+            continue
+
         print(f"\n{'='*60}")
         print(f"Training {policy_type.upper()}")
         print(f"{'='*60}")
