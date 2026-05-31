@@ -263,7 +263,7 @@ def main():
             row = f"{cond:15s}"
             for key, _, fmt in metrics:
                 val = s.get(key, 0.0)
-                row += f"  {val:{fmt.lstrip('.')}:>13}"
+                row += f"  {format(val, fmt.lstrip('.')):>13}"
             print(row)
         print("=" * 80)
 

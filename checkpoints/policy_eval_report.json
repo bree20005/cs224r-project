@@ -1,0 +1,70 @@
+{
+  "train_posts": {
+    "random": {
+      "mean_reward": 0.0,
+      "mean_true_sat": 0.24615003697350046,
+      "early_exit_rate": 0.01,
+      "return_rate": 0.855,
+      "ndcg_at_8": 0.301408795741869,
+      "precision_at_40": 0.098125
+    },
+    "engagement": {
+      "mean_reward": 0.8878716537371428,
+      "mean_true_sat": 0.874818593035871,
+      "early_exit_rate": 0.0,
+      "return_rate": 1.0,
+      "ndcg_at_8": 0.9374818926837676,
+      "precision_at_40": 0.54625
+    },
+    "trex": {
+      "mean_reward": -0.847556668817997,
+      "mean_true_sat": 0.8877024698249355,
+      "early_exit_rate": 0.0,
+      "return_rate": 0.995,
+      "ndcg_at_8": 0.9558980229440678,
+      "precision_at_40": 0.613125
+    },
+    "ground_truth": {
+      "mean_reward": 0.9175489499204761,
+      "mean_true_sat": 0.9175489499204761,
+      "early_exit_rate": 0.0,
+      "return_rate": 1.0,
+      "ndcg_at_8": 0.990209426790034,
+      "precision_at_40": 0.966875
+    }
+  },
+  "cluster4_eval": {
+    "random": {
+      "mean_reward": 0.0,
+      "mean_true_sat": -0.003542055438102029,
+      "early_exit_rate": 0.05,
+      "return_rate": 0.535,
+      "ndcg_at_8": 0.19319330500934442,
+      "precision_at_40": 0.39020833333333327
+    },
+    "engagement": {
+      "mean_reward": 0.5892783659317741,
+      "mean_true_sat": 0.12034575477887109,
+      "early_exit_rate": 0.0,
+      "return_rate": 0.625,
+      "ndcg_at_8": 0.6724986865766834,
+      "precision_at_40": 0.8025
+    },
+    "trex": {
+      "mean_reward": -20.61675159454346,
+      "mean_true_sat": 0.1585976994823676,
+      "early_exit_rate": 0.0,
+      "return_rate": 0.76,
+      "ndcg_at_8": 0.8145344600343128,
+      "precision_at_40": 0.960625
+    },
+    "ground_truth": {
+      "mean_reward": 0.05861593412404295,
+      "mean_true_sat": 0.05861593412404295,
+      "early_exit_rate": 0.015,
+      "return_rate": 0.64,
+      "ndcg_at_8": 0.4237987825245764,
+      "precision_at_40": 0.630625
+    }
+  }
+}
