@@ -5,6 +5,7 @@ import json
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
 import numpy as np
 from pathlib import Path
 
@@ -171,8 +172,155 @@ def plot_trex_individual():
                 FIGS / "train_entropy_trex.png", smoothed=True)
 
 
+# ---------------------------------------------------------------------------
+# Figure 4: Method diagrams
+# ---------------------------------------------------------------------------
+
+def make_box(ax, x, y, w, h, text, color, fontsize=11, radius=0.04):
+    box = mpatches.FancyBboxPatch(
+        (x - w / 2, y - h / 2), w, h,
+        boxstyle=f"round,pad=0.02,rounding_size={radius}",
+        facecolor=color, edgecolor="white", linewidth=1.5, zorder=3,
+    )
+    ax.add_patch(box)
+    ax.text(x, y, text, ha="center", va="center", fontsize=fontsize,
+            fontweight="bold", color="white", zorder=4, multialignment="center")
+
+
+def arrow(ax, x0, y0, x1, y1, color="#555555"):
+    ax.annotate("", xy=(x1, y1), xytext=(x0, y0),
+                arrowprops=dict(arrowstyle="-|>", color=color,
+                                lw=1.8, mutation_scale=18), zorder=2)
+
+
+def plot_diagram_reward_pipeline():
+    """Diagram 1: T-REX reward learning pipeline."""
+
+    fig, ax = plt.subplots(figsize=(14, 4))
+    ax.set_xlim(0, 14)
+    ax.set_ylim(0, 4)
+    ax.axis("off")
+    fig.patch.set_facecolor("white")
+
+    BOX_H = 1.1
+    BOX_W = 2.2
+    Y = 2.0
+
+    BLUE   = "#4A7FC1"
+    ORANGE = "#E07B39"
+    GREEN  = "#4A9E6B"
+    PURPLE = "#7B5EA7"
+
+    boxes = [
+        (1.4,  Y, "User\nSessions",         BLUE),
+        (4.0,  Y, "Behavioral\nSignals",    BLUE),
+        (6.6,  Y, "Pairwise\nRankings",     ORANGE),
+        (9.2,  Y, "Reward\nModel  r_θ",    PURPLE),
+        (12.2, Y, "Learned\nReward",        GREEN),
+    ]
+
+    for x, y, txt, col in boxes:
+        make_box(ax, x, y, BOX_W, BOX_H, txt, col, fontsize=10.5)
+
+    # Arrows between boxes
+    gaps = [(2.5, 3.0), (5.1, 5.6), (7.7, 8.2), (10.3, 11.1)]
+    labels = [
+        "early exit\nreturn prob\nengagement",
+        "Bradley-Terry\npairwise loss",
+        "session pairs\nranked by signal",
+        "",
+    ]
+    for (x0, x1), lbl in zip(gaps, labels):
+        arrow(ax, x0, Y, x1, Y)
+        if lbl:
+            ax.text((x0 + x1) / 2, Y + 0.78, lbl,
+                    ha="center", va="bottom", fontsize=8, color="#444444",
+                    multialignment="center")
+
+    ax.set_title("Diagram 1 — T-REX Reward Learning Pipeline",
+                 fontsize=13, fontweight="bold", pad=8, color="#222222")
+
+    fig.tight_layout()
+    out = FIGS / "diagram_reward_pipeline.png"
+    fig.savefig(out, dpi=150, bbox_inches="tight", facecolor="white")
+    plt.close(fig)
+    print(f"Saved {out}")
+
+
+def plot_diagram_training_loop():
+    """Diagram 2: PPO training loop — clean orthogonal layout."""
+
+    fig, ax = plt.subplots(figsize=(11, 8))
+    ax.set_xlim(0, 11)
+    ax.set_ylim(0, 8)
+    ax.axis("off")
+    fig.patch.set_facecolor("white")
+
+    BLUE   = "#4A7FC1"
+    ORANGE = "#E07B39"
+    GRAY   = "#7A8A9A"
+    PURPLE = "#7B5EA7"
+
+    BH = 0.90
+
+    # ── Boxes: vertical center column + Reward Model to the left ──────────
+    make_box(ax, 5.5, 6.6, 3.0, BH, "Social Feed\nEnvironment",              BLUE,   fontsize=10)
+    make_box(ax, 5.5, 4.5, 3.2, BH, "PPO Policy  π_T-REX\n(Actor-Critic + user emb.)", PURPLE, fontsize=9.5)
+    make_box(ax, 5.5, 2.4, 3.0, BH, "User Simulator",                         GRAY,   fontsize=10)
+    make_box(ax, 1.5, 4.5, 2.6, BH, "Reward Model  r_θ\n(frozen)",            ORANGE, fontsize=9.5)
+
+    def sa(x0, y0, x1, y1, col="#555555"):
+        ax.annotate("", xy=(x1, y1), xytext=(x0, y0),
+                    arrowprops=dict(arrowstyle="-|>", color=col,
+                                   lw=1.8, mutation_scale=18), zorder=2)
+
+    # ── Arrow 1: Env → Policy (straight down) ─────────────────────────────
+    sa(5.5, 6.15, 5.5, 4.95)
+    ax.text(5.72, 5.55, "state: user + post\nembeddings",
+            ha="left", va="center", fontsize=8.5, color="#333333")
+
+    # ── Arrow 2: Policy → User Sim (straight down) ────────────────────────
+    sa(5.5, 4.05, 5.5, 2.85)
+    ax.text(5.72, 3.45, "action: ranked\npost selection",
+            ha="left", va="center", fontsize=8.5, color="#333333")
+
+    # ── Arrow 3: User Sim → Reward (L-shape: left then up) ────────────────
+    # Path: User Sim left edge → horizontal left → vertical up → Reward bottom
+    ax.plot([4.0, 1.5], [2.4, 2.4], color="#555555", lw=1.8, zorder=2,
+            solid_capstyle="round")
+    ax.plot([1.5, 1.5], [2.4, 4.05], color="#555555", lw=1.8, zorder=2,
+            solid_capstyle="round")
+    sa(1.5, 3.92, 1.5, 4.05)   # arrowhead cap at top of vertical segment
+    ax.text(2.75, 2.05, "session behavior",
+            ha="center", va="top", fontsize=8.5, color="#333333")
+
+    # ── Arrow 4: Reward → Policy (straight horizontal right) ──────────────
+    sa(2.8, 4.5, 3.9, 4.5)
+    ax.text(3.35, 4.72, "reward  r",
+            ha="center", va="bottom", fontsize=8.5, color="#333333")
+
+    # ── Arrow 5: User Sim → Env (curved arc on right, next session) ───────
+    ax.annotate("", xy=(7.0, 6.15), xytext=(7.0, 2.85),
+                arrowprops=dict(arrowstyle="-|>", color="#aaaaaa",
+                               lw=1.5, mutation_scale=15,
+                               connectionstyle="arc3,rad=-0.45"), zorder=2)
+    ax.text(8.7, 4.5, "next\nsession",
+            ha="center", va="center", fontsize=8.5, color="#888888")
+
+    ax.set_title("Diagram 2 — PPO Training Loop",
+                 fontsize=13, fontweight="bold", pad=8, color="#222222")
+
+    fig.tight_layout()
+    out = FIGS / "diagram_training_loop.png"
+    fig.savefig(out, dpi=150, bbox_inches="tight", facecolor="white")
+    plt.close(fig)
+    print(f"Saved {out}")
+
+
 if __name__ == "__main__":
     plot_reward_model()
     plot_policy_comparison()
     plot_trex_individual()
+    plot_diagram_reward_pipeline()
+    plot_diagram_training_loop()
     print("Done.")
