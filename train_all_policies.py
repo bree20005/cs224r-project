@@ -25,7 +25,7 @@ def train_all(
     results = {}
 
     for policy_type in POLICIES:
-        ckpt_file = Path(f"checkpoints/ppo_policy_{policy_type}.pt")
+        ckpt_file = Path(f"checkpoints/ppo_policy_{policy_type}_seed{seed}.pt")
         if ckpt_file.exists():
             print(f"\nSkipping {policy_type.upper()} — checkpoint already exists: {ckpt_file}")
             continue
@@ -73,7 +73,11 @@ def train_all(
 
 
 if __name__ == "__main__":
-    import sys
+    import argparse
 
-    use_wandb = "--wandb" in sys.argv
-    train_all(use_wandb=use_wandb)
+    parser = argparse.ArgumentParser(description="Train all PPO policies")
+    parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--wandb", action="store_true")
+    args = parser.parse_args()
+
+    train_all(use_wandb=args.wandb, seed=args.seed)

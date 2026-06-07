@@ -62,6 +62,7 @@ def train(
     checkpoint_dir: str = "checkpoints",
 ):
     torch.manual_seed(seed)
+    np.random.seed(seed)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     sessions, pairs, post_embeddings = load_sessions_and_pairs(data_dir)
@@ -128,7 +129,7 @@ def train(
     for p in model.parameters():
         p.requires_grad = False
 
-    frozen_path = ckpt_dir / "reward_net_frozen.pt"
+    frozen_path = ckpt_dir / f"reward_net_frozen_seed{seed}.pt"
     torch.save(
         {
             "state_dict": model.state_dict(),
@@ -142,7 +143,7 @@ def train(
         frozen_path,
     )
 
-    with open(ckpt_dir / "reward_train_history.json", "w") as f:
+    with open(ckpt_dir / f"reward_train_history_seed{seed}.json", "w") as f:
         json.dump(history, f, indent=2)
 
     print(f"\nFrozen reward network → {frozen_path}")
@@ -150,4 +151,20 @@ def train(
 
 
 if __name__ == "__main__":
-    train()
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Train T-REX reward network")
+    parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--epochs", type=int, default=40)
+    parser.add_argument("--lr", type=float, default=1e-3)
+    parser.add_argument("--data-dir", default="data")
+    parser.add_argument("--checkpoint-dir", default="checkpoints")
+    args = parser.parse_args()
+
+    train(
+        data_dir=args.data_dir,
+        epochs=args.epochs,
+        lr=args.lr,
+        seed=args.seed,
+        checkpoint_dir=args.checkpoint_dir,
+    )

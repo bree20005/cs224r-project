@@ -121,13 +121,15 @@ def random_baseline(
 def train(
     data_dir: str = "data",
     checkpoint_dir: str = "checkpoints",
-    reward_ckpt: str = "checkpoints/reward_net_frozen.pt",
+    reward_ckpt: str = None,
     seed: int = RANDOM_SEED,
     use_wandb: bool = False,
     wandb_project: str = "cs224r-trex",
     wandb_run_name: str = "ppo",
     reward_type: str = "trex",
 ):
+    if reward_ckpt is None:
+        reward_ckpt = f"{checkpoint_dir}/reward_net_frozen_seed{seed}.pt"
     torch.manual_seed(seed)
     np.random.seed(seed)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -316,8 +318,9 @@ def train(
                     "model_config": {"hidden_dim": HIDDEN_DIM},
                     "iteration": iteration,
                     "reward_type": reward_type,
+                    "seed": seed,
                 },
-                ckpt_dir / f"ppo_policy_{reward_type}_iter{iteration}.pt",
+                ckpt_dir / f"ppo_policy_{reward_type}_seed{seed}_iter{iteration}.pt",
             )
 
     # Final save
@@ -327,11 +330,12 @@ def train(
             "model_config": {"hidden_dim": HIDDEN_DIM},
             "iteration": N_ITERATIONS,
             "reward_type": reward_type,
+            "seed": seed,
             "random_baseline": base,
         },
-        ckpt_dir / f"ppo_policy_{reward_type}.pt",
+        ckpt_dir / f"ppo_policy_{reward_type}_seed{seed}.pt",
     )
-    with open(ckpt_dir / f"ppo_train_history_{reward_type}.json", "w") as f:
+    with open(ckpt_dir / f"ppo_train_history_{reward_type}_seed{seed}.json", "w") as f:
         json.dump(history, f, indent=2)
 
     if use_wandb:
@@ -347,15 +351,38 @@ def train(
                 last_eval["eval_mean_true_sat"] - base["mean_true_sat"]
             )
         # Save checkpoint as artifact
-        artifact = wandb.Artifact(f"ppo_policy_{reward_type}", type="model")
-        artifact.add_file(str(ckpt_dir / f"ppo_policy_{reward_type}.pt"))
-        artifact.add_file(str(ckpt_dir / f"ppo_train_history_{reward_type}.json"))
+        artifact = wandb.Artifact(f"ppo_policy_{reward_type}_seed{seed}", type="model")
+        artifact.add_file(str(ckpt_dir / f"ppo_policy_{reward_type}_seed{seed}.pt"))
+        artifact.add_file(str(ckpt_dir / f"ppo_train_history_{reward_type}_seed{seed}.json"))
         wandb.log_artifact(artifact)
         wandb.finish()
 
-    print(f"\nFinal policy ({reward_type}) saved → {ckpt_dir / f'ppo_policy_{reward_type}.pt'}")
+    print(f"\nFinal policy ({reward_type}) saved → {ckpt_dir / f'ppo_policy_{reward_type}_seed{seed}.pt'}")
     return history, base
 
 
 if __name__ == "__main__":
-    train()
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Train PPO policy")
+    parser.add_argument("--seed", type=int, default=RANDOM_SEED)
+    parser.add_argument("--reward-type", default="trex", choices=["trex", "engagement", "ground_truth"])
+    parser.add_argument("--reward-ckpt", default=None, help="Override reward checkpoint path")
+    parser.add_argument("--data-dir", default="data")
+    parser.add_argument("--checkpoint-dir", default="checkpoints")
+    parser.add_argument("--wandb", action="store_true")
+    parser.add_argument("--wandb-project", default="cs224r-trex")
+    parser.add_argument("--wandb-run-name", default=None)
+    args = parser.parse_args()
+
+    run_name = args.wandb_run_name or f"ppo-{args.reward_type}-seed{args.seed}"
+    train(
+        data_dir=args.data_dir,
+        checkpoint_dir=args.checkpoint_dir,
+        reward_ckpt=args.reward_ckpt,
+        seed=args.seed,
+        use_wandb=args.wandb,
+        wandb_project=args.wandb_project,
+        wandb_run_name=run_name,
+        reward_type=args.reward_type,
+    )
