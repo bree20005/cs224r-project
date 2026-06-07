@@ -1,0 +1,282 @@
+[
+  {
+    "epoch": 1,
+    "train_bt_loss": 0.4834744273208258,
+    "val_bt_loss": 0.35939494552819623,
+    "val_ranking_accuracy": 0.873859649122807,
+    "all_sessions_pearson_true_sat": 0.7032581483912604
+  },
+  {
+    "epoch": 2,
+    "train_bt_loss": 0.3653527822081498,
+    "val_bt_loss": 0.36562723050946777,
+    "val_ranking_accuracy": 0.8759649122807017,
+    "all_sessions_pearson_true_sat": 0.7024457980835352
+  },
+  {
+    "epoch": 3,
+    "train_bt_loss": 0.3618812758152879,
+    "val_bt_loss": 0.35690728996111,
+    "val_ranking_accuracy": 0.8807017543859649,
+    "all_sessions_pearson_true_sat": 0.6982037364022987
+  },
+  {
+    "epoch": 4,
+    "train_bt_loss": 0.3593005927528922,
+    "val_bt_loss": 0.3567424455414648,
+    "val_ranking_accuracy": 0.8794736842105263,
+    "all_sessions_pearson_true_sat": 0.6963877627318579
+  },
+  {
+    "epoch": 5,
+    "train_bt_loss": 0.35854065746772945,
+    "val_bt_loss": 0.3579024484624033,
+    "val_ranking_accuracy": 0.8803508771929824,
+    "all_sessions_pearson_true_sat": 0.6902207392771448
+  },
+  {
+    "epoch": 6,
+    "train_bt_loss": 0.3554604440692842,
+    "val_bt_loss": 0.3599962151568869,
+    "val_ranking_accuracy": 0.8803508771929824,
+    "all_sessions_pearson_true_sat": 0.687890867698447
+  },
+  {
+    "epoch": 7,
+    "train_bt_loss": 0.3532243284184163,
+    "val_bt_loss": 0.359737881499788,
+    "val_ranking_accuracy": 0.8785964912280702,
+    "all_sessions_pearson_true_sat": 0.6892313290876972
+  },
+  {
+    "epoch": 8,
+    "train_bt_loss": 0.35331069836466333,
+    "val_bt_loss": 0.35906233735706494,
+    "val_ranking_accuracy": 0.8796491228070176,
+    "all_sessions_pearson_true_sat": 0.6879589774702293
+  },
+  {
+    "epoch": 9,
+    "train_bt_loss": 0.35113129876260685,
+    "val_bt_loss": 0.36110893993274024,
+    "val_ranking_accuracy": 0.8708771929824561,
+    "all_sessions_pearson_true_sat": 0.691225829835167
+  },
+  {
+    "epoch": 10,
+    "train_bt_loss": 0.3490719274273069,
+    "val_bt_loss": 0.36156786589518836,
+    "val_ranking_accuracy": 0.8752631578947369,
+    "all_sessions_pearson_true_sat": 0.6954262592383755
+  },
+  {
+    "epoch": 11,
+    "train_bt_loss": 0.3466090738304018,
+    "val_bt_loss": 0.3633570774741795,
+    "val_ranking_accuracy": 0.8717543859649123,
+    "all_sessions_pearson_true_sat": 0.6904505279254376
+  },
+  {
+    "epoch": 12,
+    "train_bt_loss": 0.34514533628628946,
+    "val_bt_loss": 0.3635216264621071,
+    "val_ranking_accuracy": 0.8721052631578947,
+    "all_sessions_pearson_true_sat": 0.6911919128826655
+  },
+  {
+    "epoch": 13,
+    "train_bt_loss": 0.3452719877085348,
+    "val_bt_loss": 0.36265862441581226,
+    "val_ranking_accuracy": 0.8712280701754386,
+    "all_sessions_pearson_true_sat": 0.6870244555668625
+  },
+  {
+    "epoch": 14,
+    "train_bt_loss": 0.342827298861789,
+    "val_bt_loss": 0.365414682937705,
+    "val_ranking_accuracy": 0.8733333333333333,
+    "all_sessions_pearson_true_sat": 0.6908067763829263
+  },
+  {
+    "epoch": 15,
+    "train_bt_loss": 0.34274264982366187,
+    "val_bt_loss": 0.3666379503581835,
+    "val_ranking_accuracy": 0.8696491228070176,
+    "all_sessions_pearson_true_sat": 0.6816038008254645
+  },
+  {
+    "epoch": 16,
+    "train_bt_loss": 0.3405477118304395,
+    "val_bt_loss": 0.3658798622048419,
+    "val_ranking_accuracy": 0.871578947368421,
+    "all_sessions_pearson_true_sat": 0.6840491649934364
+  },
+  {
+    "epoch": 17,
+    "train_bt_loss": 0.34041562746828935,
+    "val_bt_loss": 0.3692884963491689,
+    "val_ranking_accuracy": 0.8689473684210526,
+    "all_sessions_pearson_true_sat": 0.6847216528294637
+  },
+  {
+    "epoch": 18,
+    "train_bt_loss": 0.33883695691589294,
+    "val_bt_loss": 0.36721827996813733,
+    "val_ranking_accuracy": 0.868421052631579,
+    "all_sessions_pearson_true_sat": 0.6844231854221273
+  },
+  {
+    "epoch": 19,
+    "train_bt_loss": 0.33811104837365036,
+    "val_bt_loss": 0.36853327051452967,
+    "val_ranking_accuracy": 0.863859649122807,
+    "all_sessions_pearson_true_sat": 0.6925585645448766
+  },
+  {
+    "epoch": 20,
+    "train_bt_loss": 0.3372719121260906,
+    "val_bt_loss": 0.37296796104182367,
+    "val_ranking_accuracy": 0.8585964912280701,
+    "all_sessions_pearson_true_sat": 0.6926788184603501
+  },
+  {
+    "epoch": 21,
+    "train_bt_loss": 0.33646450502665964,
+    "val_bt_loss": 0.3752988427877426,
+    "val_ranking_accuracy": 0.8603508771929824,
+    "all_sessions_pearson_true_sat": 0.6843201298688437
+  },
+  {
+    "epoch": 22,
+    "train_bt_loss": 0.3346473511279099,
+    "val_bt_loss": 0.37294790602248645,
+    "val_ranking_accuracy": 0.860701754385965,
+    "all_sessions_pearson_true_sat": 0.6830572941364826
+  },
+  {
+    "epoch": 23,
+    "train_bt_loss": 0.33408489330547064,
+    "val_bt_loss": 0.3747962687326514,
+    "val_ranking_accuracy": 0.8649122807017544,
+    "all_sessions_pearson_true_sat": 0.6829656612450345
+  },
+  {
+    "epoch": 24,
+    "train_bt_loss": 0.33328629971489193,
+    "val_bt_loss": 0.3783674887988878,
+    "val_ranking_accuracy": 0.8585964912280701,
+    "all_sessions_pearson_true_sat": 0.6862717725635802
+  },
+  {
+    "epoch": 25,
+    "train_bt_loss": 0.33247025463524765,
+    "val_bt_loss": 0.37913816713768506,
+    "val_ranking_accuracy": 0.8636842105263158,
+    "all_sessions_pearson_true_sat": 0.6847926634402284
+  },
+  {
+    "epoch": 26,
+    "train_bt_loss": 0.33074898278619363,
+    "val_bt_loss": 0.3787389099597931,
+    "val_ranking_accuracy": 0.8587719298245614,
+    "all_sessions_pearson_true_sat": 0.6747702915333791
+  },
+  {
+    "epoch": 27,
+    "train_bt_loss": 0.32873930353817976,
+    "val_bt_loss": 0.3853489834329356,
+    "val_ranking_accuracy": 0.861578947368421,
+    "all_sessions_pearson_true_sat": 0.6826641132173582
+  },
+  {
+    "epoch": 28,
+    "train_bt_loss": 0.32968197152839873,
+    "val_bt_loss": 0.3817975883898528,
+    "val_ranking_accuracy": 0.8556140350877193,
+    "all_sessions_pearson_true_sat": 0.6794594626026651
+  },
+  {
+    "epoch": 29,
+    "train_bt_loss": 0.3294112318613398,
+    "val_bt_loss": 0.3827491590510244,
+    "val_ranking_accuracy": 0.8542105263157894,
+    "all_sessions_pearson_true_sat": 0.6940185075776765
+  },
+  {
+    "epoch": 30,
+    "train_bt_loss": 0.32630066984281764,
+    "val_bt_loss": 0.3821685398402421,
+    "val_ranking_accuracy": 0.8582456140350877,
+    "all_sessions_pearson_true_sat": 0.6811700354076148
+  },
+  {
+    "epoch": 31,
+    "train_bt_loss": 0.327489138353528,
+    "val_bt_loss": 0.3866275393444559,
+    "val_ranking_accuracy": 0.8629824561403509,
+    "all_sessions_pearson_true_sat": 0.6742812221522533
+  },
+  {
+    "epoch": 32,
+    "train_bt_loss": 0.3277329268652623,
+    "val_bt_loss": 0.3830375373363495,
+    "val_ranking_accuracy": 0.857719298245614,
+    "all_sessions_pearson_true_sat": 0.6823685674099659
+  },
+  {
+    "epoch": 33,
+    "train_bt_loss": 0.32570439131241147,
+    "val_bt_loss": 0.3847244751194249,
+    "val_ranking_accuracy": 0.8543859649122807,
+    "all_sessions_pearson_true_sat": 0.6778319133260734
+  },
+  {
+    "epoch": 34,
+    "train_bt_loss": 0.324745280536141,
+    "val_bt_loss": 0.38694098332653876,
+    "val_ranking_accuracy": 0.857719298245614,
+    "all_sessions_pearson_true_sat": 0.6812240469952283
+  },
+  {
+    "epoch": 35,
+    "train_bt_loss": 0.32369126930950193,
+    "val_bt_loss": 0.3951935968969179,
+    "val_ranking_accuracy": 0.8594736842105263,
+    "all_sessions_pearson_true_sat": 0.6700909682350699
+  },
+  {
+    "epoch": 36,
+    "train_bt_loss": 0.3203443218403914,
+    "val_bt_loss": 0.3843889100396115,
+    "val_ranking_accuracy": 0.8575438596491228,
+    "all_sessions_pearson_true_sat": 0.6807439064833539
+  },
+  {
+    "epoch": 37,
+    "train_bt_loss": 0.3204561650283693,
+    "val_bt_loss": 0.3886478834826013,
+    "val_ranking_accuracy": 0.850701754385965,
+    "all_sessions_pearson_true_sat": 0.6836430113088018
+  },
+  {
+    "epoch": 38,
+    "train_bt_loss": 0.32063456607146523,
+    "val_bt_loss": 0.38891909563023114,
+    "val_ranking_accuracy": 0.8580701754385965,
+    "all_sessions_pearson_true_sat": 0.6740599732659794
+  },
+  {
+    "epoch": 39,
+    "train_bt_loss": 0.31814513537358113,
+    "val_bt_loss": 0.39299150523932086,
+    "val_ranking_accuracy": 0.8566666666666667,
+    "all_sessions_pearson_true_sat": 0.6816322595863671
+  },
+  {
+    "epoch": 40,
+    "train_bt_loss": 0.31667903640608147,
+    "val_bt_loss": 0.4008798748254776,
+    "val_ranking_accuracy": 0.8533333333333334,
+    "all_sessions_pearson_true_sat": 0.6704054933190617
+  }
+]
