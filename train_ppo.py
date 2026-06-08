@@ -1,14 +1,4 @@
 #!/usr/bin/env python3
-"""
-Train a feed-ranking policy with PPO.
-
-The policy selects posts sequentially within a session.
-Reward = FrozenRewardScorer.score(session) — never uses true_satisfaction.
-
-Usage
------
-    python train_ppo.py
-"""
 
 from __future__ import annotations
 
@@ -28,9 +18,7 @@ from sim.content import ContentLibrary
 from sim.env import SocialFeedEnv
 from sim.users import UserPopulation
 
-# ---------------------------------------------------------------------------
-# Hyperparameters
-# ---------------------------------------------------------------------------
+
 N_ITERATIONS = 200
 N_EPISODES_PER_ITER = 64
 PPO_EPOCHS = 4
@@ -42,7 +30,7 @@ GAE_LAMBDA = 0.95
 LR = 3e-4
 MAX_GRAD_NORM = 0.5
 HIDDEN_DIM = 64
-EVAL_INTERVAL = 20    # evaluate every N iterations
+EVAL_INTERVAL = 20    
 N_EVAL_EPISODES = 200
 
 
@@ -136,12 +124,12 @@ def train(
     print(f"device: {device}")
     print(f"reward_type: {reward_type}")
 
-    # World model (deterministic — same as training data)
+    
     content = ContentLibrary(seed=seed)
     users = UserPopulation(content, seed=seed + 1)
     env = SocialFeedEnv(content, users, seed=seed + 10)
 
-    # Load reward network only if needed
+    
     scorer = None
     if reward_type == "trex":
         scorer = FrozenRewardScorer(reward_ckpt, data_dir=data_dir)
@@ -154,7 +142,7 @@ def train(
     ckpt_dir = Path(checkpoint_dir)
     ckpt_dir.mkdir(parents=True, exist_ok=True)
 
-    # Compute random baseline once
+    
     print("Computing random baseline…")
     base = random_baseline(env, users, content, reward_fn=reward_fn, scorer=scorer)
     print(
@@ -190,9 +178,6 @@ def train(
     history = []
 
     for iteration in range(1, N_ITERATIONS + 1):
-        # ------------------------------------------------------------------ #
-        # Collect rollouts
-        # ------------------------------------------------------------------ #
         policy.eval()
         buffer, rollout_stats = collect_rollouts(
             policy, env, users, content,
@@ -207,9 +192,6 @@ def train(
         # Normalize advantages across the full buffer
         norm_advs = buffer.normalized_advantages()
 
-        # ------------------------------------------------------------------ #
-        # PPO update
-        # ------------------------------------------------------------------ #
         policy.train()
         pg_losses, vf_losses, entropies = [], [], []
 
@@ -246,9 +228,6 @@ def train(
                 vf_losses.append(vf_loss.item())
                 entropies.append(entropy.item())
 
-        # ------------------------------------------------------------------ #
-        # Logging
-        # ------------------------------------------------------------------ #
         row = {
             "iteration": iteration,
             "rollout_mean_reward": rollout_stats["mean_reward"],
@@ -295,7 +274,6 @@ def train(
                 "rollout/reward": row["rollout_mean_reward"],
                 "rollout/true_sat": row["rollout_mean_true_sat"],
                 "rollout/early_exit_rate": row["rollout_early_exit_rate"],
-                # Log baseline at every step so it appears as a reference line
                 "baseline/reward": base["mean_reward"],
                 "baseline/true_sat": base["mean_true_sat"],
             }
@@ -323,7 +301,6 @@ def train(
                 ckpt_dir / f"ppo_policy_{reward_type}_seed{seed}_iter{iteration}.pt",
             )
 
-    # Final save
     torch.save(
         {
             "state_dict": policy.state_dict(),
@@ -340,7 +317,6 @@ def train(
 
     if use_wandb:
         import wandb
-        # Final summary values for the report table
         last_eval = next(
             (r for r in reversed(history) if "eval_mean_true_sat" in r), None
         )
@@ -350,7 +326,6 @@ def train(
             wandb.run.summary["final/true_sat_delta"] = (
                 last_eval["eval_mean_true_sat"] - base["mean_true_sat"]
             )
-        # Save checkpoint as artifact
         artifact = wandb.Artifact(f"ppo_policy_{reward_type}_seed{seed}", type="model")
         artifact.add_file(str(ckpt_dir / f"ppo_policy_{reward_type}_seed{seed}.pt"))
         artifact.add_file(str(ckpt_dir / f"ppo_train_history_{reward_type}_seed{seed}.json"))

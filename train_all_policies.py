@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 """
 Train all 4 policies for comparison: π_random, π_engagement, π_T-REX, π_ground_truth.
-
-Usage
------
-    python train_all_policies.py
 """
 
 from __future__ import annotations
@@ -53,7 +49,6 @@ def train_all(
                 "true_sat_delta": last_eval["eval_mean_true_sat"] - base["mean_true_sat"],
             }
 
-    # Summary table
     print(f"\n{'='*60}")
     print("POLICY COMPARISON SUMMARY")
     print(f"{'='*60}")
@@ -66,7 +61,6 @@ def train_all(
                 f"{r['true_sat_delta']:+12.4f}"
             )
 
-    # Save summary
     with open("checkpoints/policy_comparison.json", "w") as f:
         json.dump(results, f, indent=2)
     print(f"\nComparison saved → checkpoints/policy_comparison.json")

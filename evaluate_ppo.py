@@ -8,10 +8,6 @@ Metrics (all on held-out greedy rollouts, ground truth never used in training):
   - next-session return rate
   - early-exit rate
   - generalization: true_satisfaction on sessions containing cluster-4 posts
-
-Usage
------
-    python evaluate_ppo.py
 """
 
 from __future__ import annotations

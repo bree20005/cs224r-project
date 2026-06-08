@@ -1,9 +1,4 @@
 #!/usr/bin/env python3
-"""
-Train trajectory reward network with Bradley-Terry pairwise loss.
-
-Never uses true_satisfaction, true_affinity, or user_preferences.
-"""
 
 from __future__ import annotations
 
@@ -41,7 +36,6 @@ def ranking_accuracy(model, pairs, sessions_by_id, post_embeddings, device) -> f
 
 
 def pearson_vs_true_sat(model, sessions, post_embeddings, device) -> float:
-    """Diagnostic only — true_sat is never a training target."""
     model.eval()
     preds, truths = [], []
     with torch.no_grad():
